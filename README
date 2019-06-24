@@ -1,0 +1,23 @@
+=== LegacyFox ===
+
+Monkeypatching Firefox Quantum to run VimFx
+
+== Installation ==
+0. Install/upgrade Firefox from your distribution's repositories
+1. As root, issue `make install`
+2. Install VimFx from https://github.com/akhodakivskiy/VimFx/releases
+
+== Notes ==
+ * boot.jsm was lifted from https://github.com/xiaoxiaoflood/firefox-scripts.git
+ * BootstrapLoader.jsm, RDFDataSource.jsm, RDFManifestConverter.jsm from their
+   last commit in comm-central (8a37a90aab4ec643fce1e1ab33984613ce0b492d)
+ * config.js: own work
+
+== Disclaimer & License ==
+
+This project is neither endorsed nor recommended by Mozilla. Firefox is their 
+trademark; you are not granted any right to distribute modified binary versions 
+of the software containing the official branding.
+
+(C) 2018-2019 Mozilla, MPL v2
+(C) 2019 //gir.st/, MPL v2
