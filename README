@@ -12,6 +12,7 @@ Monkeypatching Firefox Quantum to run VimFx
    last commit in comm-central (8a37a90aab4ec643fce1e1ab33984613ce0b492d)
  * config.js: own work (compare mozilla-central 061b97e02ede)
  * Inspired by https://github.com/xiaoxiaoflood/firefox-scripts.git
+ * Uses unsandboxed AutoConfig -- watch http://bugzil.la/1514451
 
 == Disclaimer & License ==
 This project is neither endorsed nor recommended by Mozilla. Firefox is their 
