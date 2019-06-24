@@ -4,14 +4,13 @@ Monkeypatching Firefox Quantum to run VimFx
 
 == Installation ==
 0. Install/upgrade Firefox from your distribution's repositories
-1. As root, issue `make install`
+1. As root, issue `make install` (or manually untar into /usr/lib{,64}/firefox)
 2. Install VimFx from https://github.com/akhodakivskiy/VimFx/releases
 
 == Notes ==
- * boot.jsm was lifted from https://github.com/xiaoxiaoflood/firefox-scripts.git
  * BootstrapLoader.jsm, RDFDataSource.jsm, RDFManifestConverter.jsm from their
    last commit in comm-central (8a37a90aab4ec643fce1e1ab33984613ce0b492d)
- * config.js: own work
+ * config.js: own work (compare mozilla-central 061b97e02ede)
 
 == Disclaimer & License ==
 
