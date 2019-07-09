@@ -1,8 +1,8 @@
 .PHONY: all install
 
-files := chrome.manifest
-files += config.js
+files := config.js
 files += defaults/pref/config-prefs.js
+files += legacy.manifest
 files += legacy/BootstrapLoader.jsm
 files += legacy/RDFDataSource.jsm
 files += legacy/RDFManifestConverter.jsm

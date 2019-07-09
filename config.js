@@ -8,11 +8,9 @@ try {
     "ALLOW_LEGACY_EXTENSIONS": true,
   };
 
-  let manifest = Cc['@mozilla.org/file/directory_service;1']
-    .getService(Ci.nsIProperties).get('GreD', Ci.nsIFile);
-  manifest.append('chrome.manifest');
+  const {FileUtils} = Cu.import('resource://gre/modules/FileUtils.jsm');
   Components.manager.QueryInterface(Ci.nsIComponentRegistrar)
-    .autoRegister(manifest);
+    .autoRegister(FileUtils.getFile('GreD', ['legacy.manifest']));
 
   const {AddonManager} = Cu.import('resource://gre/modules/AddonManager.jsm');
   const {BootstrapLoader} = Cu.import('chrome://legacy/content/BootstrapLoader.jsm');
