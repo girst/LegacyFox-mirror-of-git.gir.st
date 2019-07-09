@@ -13,7 +13,7 @@ XPCOMUtils.defineLazyModuleGetters(this, {
   AddonInternal: "resource://gre/modules/addons/XPIDatabase.jsm",
   Blocklist: "resource://gre/modules/Blocklist.jsm",
   ConsoleAPI: "resource://gre/modules/Console.jsm",
-  InstallRDF: "chrome://legacy/content/RDFManifestConverter.jsm",
+  InstallRDF: "resource://legacy/RDFManifestConverter.jsm",
   Services: "resource://gre/modules/Services.jsm",
 });
 
