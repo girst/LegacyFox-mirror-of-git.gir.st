@@ -4,10 +4,12 @@ Monkeypatching Firefox Quantum to run VimFx
 
 == Installation ==
 0. Install/upgrade Firefox from your distribution's repositories
-1. As root, issue `make install` (or manually untar into /usr/lib{,64}/firefox)
+1. Issue `make install` as root, or copy all files to Firefox' install directory
 2. Install VimFx from https://github.com/akhodakivskiy/VimFx/releases
 
 == Notes ==
+ * Users of firefox-esr on debian need to use the following command:
+   `make DESTDIR=/usr/lib/firefox-esr install`
  * BootstrapLoader.jsm, RDFDataSource.jsm, RDFManifestConverter.jsm from their
    last commit in comm-central (8a37a90aab4ec643fce1e1ab33984613ce0b492d)
  * config.js: own work (compare mozilla-central 061b97e02ede)
