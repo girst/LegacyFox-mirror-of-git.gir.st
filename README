@@ -8,6 +8,8 @@ Monkeypatching Firefox Quantum to run VimFx
 2. Install VimFx from https://github.com/akhodakivskiy/VimFx/releases
 
 == Notes ==
+ * set `xpinstall.signatures.required;false` to downgrade the error message
+   that unsigned addons were supposedly disabled in about:config to a warning.
  * Users of firefox-esr on debian need to use the following command:
    `make DESTDIR=/usr/lib/firefox-esr install`
  * BootstrapLoader.jsm, RDFDataSource.jsm, RDFManifestConverter.jsm from their

@@ -2,7 +2,6 @@
 try {
   let Xdb = Cu.import('resource://gre/modules/addons/XPIDatabase.jsm', {});
   Xdb.XPIDatabase.isDisabledLegacy = (addon) => false;
-  Xdb.XPIDatabase['SIGNED_TYPES'].clear();
   Xdb.AddonSettings = {
     ...Object.fromEntries(Object.getOwnPropertyNames(Xdb.AddonSettings)
       .map(e => [e, Xdb.AddonSettings[e]])),
