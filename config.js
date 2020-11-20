@@ -1,6 +1,7 @@
 // keep this comment
 try {
   let Xdb = Cu.import('resource://gre/modules/addons/XPIDatabase.jsm', {});
+  let Ext = Cu.import('resource://gre/modules/Extension.jsm', {});
   Xdb.XPIDatabase.isDisabledLegacy = (addon) => false;
   Xdb.AddonSettings = {
     ...Object.fromEntries(Object.getOwnPropertyNames(Xdb.AddonSettings)
@@ -10,6 +11,7 @@ try {
     "ALLOW_LEGACY_EXTENSIONS": true, // <=fx73
     "EXPERIMENTS_ENABLED": true, // >=fx74
   };
+  Ext.AddonSettings = Xdb.AddonSettings;
 
   const {FileUtils} = Cu.import('resource://gre/modules/FileUtils.jsm');
   Components.manager.QueryInterface(Ci.nsIComponentRegistrar)
@@ -21,6 +23,7 @@ try {
 
   const {Services} = Cu.import('resource://gre/modules/Services.jsm');
   Services.prefs.setBoolPref('xpinstall.signatures.required', false);
+  Services.prefs.setBoolPref('extensions.experiments.enabled', true);
 } catch(ex) {
   Components.utils.reportError(ex.message);
 }
