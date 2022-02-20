@@ -6,9 +6,7 @@ try {
     ...Object.fromEntries(Object.getOwnPropertyNames(Xdb.AddonSettings)
       .map(e => [e, Xdb.AddonSettings[e]])),
     "REQUIRE_SIGNING": false,
-    "LANGPACKS_REQUIRE_SIGNING": false,
     "ALLOW_LEGACY_EXTENSIONS": true, // <=fx73
-    "EXPERIMENTS_ENABLED": true, // >=fx74
   };
 
   const {FileUtils} = Cu.import('resource://gre/modules/FileUtils.jsm');
