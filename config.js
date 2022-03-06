@@ -16,9 +16,6 @@ try {
   const {AddonManager} = Cu.import('resource://gre/modules/AddonManager.jsm');
   const {BootstrapLoader} = Cu.import('resource://legacy/BootstrapLoader.jsm');
   AddonManager.addExternalExtensionLoader(BootstrapLoader);
-
-  const {Services} = Cu.import('resource://gre/modules/Services.jsm');
-  Services.prefs.setBoolPref('xpinstall.signatures.required', false);
 } catch(ex) {
   Components.utils.reportError(ex.message);
 }
