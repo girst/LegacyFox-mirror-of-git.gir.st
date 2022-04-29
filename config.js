@@ -1,13 +1,8 @@
 // keep this comment
 try {
-  let Xdb = Cu.import('resource://gre/modules/addons/XPIDatabase.jsm', {});
-  Xdb.XPIDatabase.isDisabledLegacy = (addon) => false;
-  Xdb.AddonSettings = {
-    ...Object.fromEntries(Object.getOwnPropertyNames(Xdb.AddonSettings)
-      .map(e => [e, Xdb.AddonSettings[e]])),
-    "REQUIRE_SIGNING": false,
-    "ALLOW_LEGACY_EXTENSIONS": true, // <=fx73
-  };
+  let {XPIDatabase} = Cu.import('resource://gre/modules/addons/XPIDatabase.jsm', {});
+  XPIDatabase.isDisabledLegacy = (addon) => false;
+  XPIDatabase.mustSign = (aType) => false;
 
   const {FileUtils} = Cu.import('resource://gre/modules/FileUtils.jsm');
   Components.manager.QueryInterface(Ci.nsIComponentRegistrar)
