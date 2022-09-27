@@ -318,8 +318,8 @@ var BootstrapLoader = {
     }
 
     function findMethod(name) {
-      if (sandbox.name) {
-        return sandbox.name;
+      if (sandbox[name]) {
+        return sandbox[name];
       }
 
       try {
