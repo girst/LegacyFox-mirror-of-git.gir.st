@@ -140,8 +140,7 @@ XPCOMUtils.defineLazyGlobalGetters(this, ["DOMParser", "Element", "XMLSerializer
 
 ChromeUtils.defineModuleGetter(this, "OS",
                                "resource://gre/modules/osfile.jsm");
-ChromeUtils.defineModuleGetter(this, "Services",
-                               "resource://gre/modules/Services.jsm");
+const Services = globalThis.Services || ChromeUtils.import("resource://gre/modules/Services.jsm").Services;
 
 function isAttr(obj) {
   return obj && typeof obj == "object" && ChromeUtils.getClassName(obj) == "Attr";

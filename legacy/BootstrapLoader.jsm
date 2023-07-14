@@ -14,8 +14,8 @@ XPCOMUtils.defineLazyModuleGetters(this, {
   Blocklist: "resource://gre/modules/Blocklist.jsm",
   ConsoleAPI: "resource://gre/modules/Console.jsm",
   InstallRDF: "resource://legacy/RDFManifestConverter.jsm",
-  Services: "resource://gre/modules/Services.jsm",
 });
+const Services = globalThis.Services || ChromeUtils.import("resource://gre/modules/Services.jsm").Services;
 
 XPCOMUtils.defineLazyGetter(this, "BOOTSTRAP_REASONS", () => {
   const {XPIProvider} = ChromeUtils.import("resource://gre/modules/addons/XPIProvider.jsm");
