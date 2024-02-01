@@ -138,8 +138,6 @@ const {XPCOMUtils} = ChromeUtils.import("resource://gre/modules/XPCOMUtils.jsm")
 
 XPCOMUtils.defineLazyGlobalGetters(this, ["DOMParser", "Element", "XMLSerializer", "fetch"]);
 
-ChromeUtils.defineModuleGetter(this, "OS",
-                               "resource://gre/modules/osfile.jsm");
 const Services = globalThis.Services || ChromeUtils.import("resource://gre/modules/Services.jsm").Services;
 
 function isAttr(obj) {
@@ -1508,12 +1506,5 @@ class RDFDataSource {
   serializeToString() {
     var serializer = new XMLSerializer();
     return serializer.serializeToString(this._document);
-  }
-
-  /**
-   * Saves the RDF/XML to a file.
-   */
-  async saveToFile(file) {
-    return OS.File.writeAtomic(file, new TextEncoder().encode(this.serializeToString()));
   }
 }
