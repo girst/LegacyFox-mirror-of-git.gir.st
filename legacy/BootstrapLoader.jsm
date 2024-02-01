@@ -12,18 +12,16 @@ const {XPCOMUtils} = ChromeUtils.import("resource://gre/modules/XPCOMUtils.jsm")
 XPCOMUtils.defineLazyModuleGetters(this, {
   AddonInternal: "resource://gre/modules/addons/XPIDatabase.jsm",
   Blocklist: "resource://gre/modules/Blocklist.jsm",
-  ConsoleAPI: "resource://gre/modules/Console.jsm",
   InstallRDF: "resource://legacy/RDFManifestConverter.jsm",
 });
 const Services = globalThis.Services || ChromeUtils.import("resource://gre/modules/Services.jsm").Services;
 
-XPCOMUtils.defineLazyGetter(this, "BOOTSTRAP_REASONS", () => {
+(ChromeUtils.defineLazyGetter||XPCOMUtils.defineLazyGetter)(this, "BOOTSTRAP_REASONS", () => {
   const {XPIProvider} = ChromeUtils.import("resource://gre/modules/addons/XPIProvider.jsm");
   return XPIProvider.BOOTSTRAP_REASONS;
 });
 
-const {Log} = ChromeUtils.import("resource://gre/modules/Log.jsm");
-var logger = Log.repository.getLogger("addons.bootstrap");
+var logger = console.createInstance({ prefix: "addons.bootstrap" });
 
 /**
  * Valid IDs fit this pattern.
@@ -309,8 +307,8 @@ var BootstrapLoader = {
     try {
       Object.assign(sandbox, BOOTSTRAP_REASONS);
 
-      XPCOMUtils.defineLazyGetter(sandbox, "console", () =>
-        new ConsoleAPI({ consoleID: `addon/${addon.id}` }));
+      (ChromeUtils.defineLazyGetter||XPCOMUtils.defineLazyGetter)(sandbox, "console", () =>
+        console.createInstance({ consoleID: `addon/${addon.id}` }));
 
       Services.scriptloader.loadSubScript(uri, sandbox);
     } catch (e) {
