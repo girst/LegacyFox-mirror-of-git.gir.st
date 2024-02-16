@@ -1507,4 +1507,11 @@ class RDFDataSource {
     var serializer = new XMLSerializer();
     return serializer.serializeToString(this._document);
   }
+
+  /**
+   * Saves the RDF/XML to a file.
+   */
+  async saveToFile(file) {
+    return IOUtils.writeUTF8(file, this.serializeToString());
+  }
 }
