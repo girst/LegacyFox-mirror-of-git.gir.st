@@ -4,6 +4,7 @@ try {
   XPIDatabase.isDisabledLegacy = (addon) => false;
   XPIDatabase.mustSign = (aType) => false;
 
+  const Services = globalThis.Services || Cu.import("resource://gre/modules/Services.jsm").Services;
   let manifest = Services.dirsvc.get('GreD', Ci.nsIFile);
   manifest.append('legacy.manifest');
   Components.manager.QueryInterface(Ci.nsIComponentRegistrar).autoRegister(manifest);
