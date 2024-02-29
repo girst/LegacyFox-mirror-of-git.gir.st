@@ -11,7 +11,6 @@ const {XPCOMUtils} = ChromeUtils.import("resource://gre/modules/XPCOMUtils.jsm")
 
 XPCOMUtils.defineLazyModuleGetters(this, {
   AddonInternal: "resource://gre/modules/addons/XPIDatabase.jsm",
-  Blocklist: "resource://gre/modules/Blocklist.jsm",
   InstallRDF: "resource://legacy/RDFManifestConverter.jsm",
 });
 const Services = globalThis.Services || ChromeUtils.import("resource://gre/modules/Services.jsm").Services;
@@ -274,7 +273,7 @@ var BootstrapLoader = {
     }
 
     addon.userDisabled = false;
-    addon.softDisabled = addon.blocklistState == Blocklist.STATE_SOFTBLOCKED;
+    addon.softDisabled = addon.blocklistState == Ci.nsIBlocklistService.STATE_SOFTBLOCKED;
     addon.applyBackgroundUpdates = AddonManager.AUTOUPDATE_DEFAULT;
 
     addon.userPermissions = null;
