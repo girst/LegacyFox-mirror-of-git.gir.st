@@ -5,8 +5,7 @@
 
 var EXPORTED_SYMBOLS = ["InstallRDF"];
 
-ChromeUtils.defineModuleGetter(this, "RDFDataSource",
-                               "resource://legacy/RDFDataSource.jsm");
+import {RDFDataSource} from "resource://legacy/RDFDataSource.sys.mjs";
 
 const RDFURI_INSTALL_MANIFEST_ROOT = "urn:mozilla:install-manifest";
 
@@ -40,7 +39,7 @@ class Manifest {
   }
 }
 
-class InstallRDF extends Manifest {
+export class InstallRDF extends Manifest {
   _readProps(source, obj, props) {
     for (let prop of props) {
       let val = getProperty(source, prop);

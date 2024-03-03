@@ -3,9 +3,9 @@
 files := config.js
 files += defaults/pref/config-prefs.js
 files += legacy.manifest
-files += legacy/BootstrapLoader.jsm
-files += legacy/RDFDataSource.jsm
-files += legacy/RDFManifestConverter.jsm
+files += legacy/BootstrapLoader.sys.mjs
+files += legacy/RDFDataSource.sys.mjs
+files += legacy/RDFManifestConverter.sys.mjs
 archive = legacyfox.tar.gz
 DESTDIR ?= $(wildcard /usr/lib??/firefox/)
 

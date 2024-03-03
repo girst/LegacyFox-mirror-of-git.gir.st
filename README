@@ -8,6 +8,8 @@ Monkeypatching Firefox Quantum to run VimFx
 2. Install VimFx from https://github.com/akhodakivskiy/VimFx/releases
 
 == Notes ==
+ * LegacyFox is using ESModules and requires Firefox 124 or higher. Check out
+   the `v3.3` tag for compatibility with Firefox 68 to 128.
  * Users of firefox-esr on debian need to use the following command:
    `make DESTDIR=/usr/lib/firefox-esr install`
  * BootstrapLoader.jsm, RDFDataSource.jsm, RDFManifestConverter.jsm from their
@@ -22,4 +24,4 @@ trademark; you are not granted any right to distribute modified binary versions
 of the software containing the official branding.
 
 (C) 2018-2019 Mozilla, MPL v2
-(C) 2019-2023 //gir.st/, MPL v2
+(C) 2019-2024 //gir.st/, MPL v2

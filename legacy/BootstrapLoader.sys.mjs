@@ -6,19 +6,12 @@
 
 var EXPORTED_SYMBOLS = ["BootstrapLoader"];
 
-const {AddonManager} = ChromeUtils.import("resource://gre/modules/AddonManager.jsm");
-const {XPCOMUtils} = ChromeUtils.import("resource://gre/modules/XPCOMUtils.jsm");
+import {AddonManager} from "resource://gre/modules/AddonManager.sys.mjs";
+import {AddonInternal} from "resource://gre/modules/addons/XPIDatabase.sys.mjs";
+import {InstallRDF} from "resource://legacy/RDFManifestConverter.sys.mjs";
+import {XPIProvider} from "resource://gre/modules/addons/XPIProvider.sys.mjs";
 
-XPCOMUtils.defineLazyModuleGetters(this, {
-  AddonInternal: "resource://gre/modules/addons/XPIDatabase.jsm",
-  InstallRDF: "resource://legacy/RDFManifestConverter.jsm",
-});
-const Services = globalThis.Services || ChromeUtils.import("resource://gre/modules/Services.jsm").Services;
-
-(ChromeUtils.defineLazyGetter||XPCOMUtils.defineLazyGetter)(this, "BOOTSTRAP_REASONS", () => {
-  const {XPIProvider} = ChromeUtils.import("resource://gre/modules/addons/XPIProvider.jsm");
-  return XPIProvider.BOOTSTRAP_REASONS;
-});
+const BOOTSTRAP_REASONS = XPIProvider.BOOTSTRAP_REASONS;
 
 var logger = console.createInstance({ prefix: "addons.bootstrap" });
 
@@ -99,7 +92,7 @@ function buildJarURI(aJarfile, aPath) {
   return Services.io.newURI(uri);
 }
 
-var BootstrapLoader = {
+export var BootstrapLoader = {
   name: "bootstrap",
   manifestFile: "install.rdf",
   async loadManifest(pkg) {
@@ -306,7 +299,7 @@ var BootstrapLoader = {
     try {
       Object.assign(sandbox, BOOTSTRAP_REASONS);
 
-      (ChromeUtils.defineLazyGetter||XPCOMUtils.defineLazyGetter)(sandbox, "console", () =>
+      ChromeUtils.defineLazyGetter(sandbox, "console", () =>
         console.createInstance({ consoleID: `addon/${addon.id}` }));
 
       Services.scriptloader.loadSubScript(uri, sandbox);

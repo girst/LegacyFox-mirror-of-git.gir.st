@@ -134,12 +134,6 @@ const USE_RDFNS_ATTR = false;
 var EXPORTED_SYMBOLS = ["RDFLiteral", "RDFIntLiteral", "RDFDateLiteral",
                         "RDFBlankNode", "RDFResource", "RDFDataSource"];
 
-const {XPCOMUtils} = ChromeUtils.import("resource://gre/modules/XPCOMUtils.jsm");
-
-XPCOMUtils.defineLazyGlobalGetters(this, ["DOMParser", "Element", "XMLSerializer", "fetch"]);
-
-const Services = globalThis.Services || ChromeUtils.import("resource://gre/modules/Services.jsm").Services;
-
 function isAttr(obj) {
   return obj && typeof obj == "object" && ChromeUtils.getClassName(obj) == "Attr";
 }
@@ -1113,7 +1107,7 @@ class RDFBlankNode extends RDFSubject {
  * changed as assertions are added and removed to the RDF. Pass a null document
  * to start with an empty graph.
  */
-class RDFDataSource {
+export class RDFDataSource {
   constructor(document) {
     // All known resources, indexed on URI
     this._resources = {};
