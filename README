@@ -12,9 +12,7 @@ Monkeypatching Firefox Quantum to run VimFx
    the `v3.3` tag for compatibility with Firefox 68 to 128.
  * Users of firefox-esr on debian need to use the following command:
    `make DESTDIR=/usr/lib/firefox-esr install`
- * BootstrapLoader.jsm, RDFDataSource.jsm, RDFManifestConverter.jsm from their
-   last commit in comm-central (8a37a90aab4ec643fce1e1ab33984613ce0b492d)
- * config.js: own work (compare mozilla-central 061b97e02ede)
+ * BootstrapLoader et al. from comm-central (c.f. `make diff`)
  * Inspired by https://github.com/xiaoxiaoflood/firefox-scripts.git
  * Uses unsandboxed AutoConfig -- watch http://bugzil.la/1514451
 
