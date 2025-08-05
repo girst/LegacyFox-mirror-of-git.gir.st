@@ -35,8 +35,15 @@ export class LegacyFoxUtils {
       .map(absolutizePaths.bind(null, uriMaker, file))
       .join("\n");
 
+    // we store the temporary file in the user's profile, in a subdirectory
+    // analogous to webExtension's "browser-extension-data".
+    let manifest = Services.dirsvc.get('ProfD', Ci.nsIFile)
+    manifest.append('legacy-extension-data');
+    manifest.append(addon.id);
+    manifest.exists() || manifest.create(Ci.nsIFile.DIRECTORY_TYPE, 0o755);
+    manifest.append('chrome.manifest'); /* created or truncated by ostream */
+
     // write modified chrome.manifest to profile directory
-    let manifest = constructManifestPath(addon);
     let ostream = new FileOutputStream(manifest, -1, -1, 0);
     ostream.write(manifestContents, manifestContents.length);
     ostream.close();
@@ -46,11 +53,12 @@ export class LegacyFoxUtils {
   }
 
   static removeBootstrappedManifestLocation(addon) {
-    let manifest = constructManifestPath(addon);
-    manifest.fileSize = 0; // truncate the manifest
+    let manifestDir = Services.dirsvc.get('ProfD', Ci.nsIFile)
+    manifestDir.append('legacy-extension-data');
+    manifestDir.append(addon.id);
+    manifestDir.exists() && manifestDir.remove(/*recursive=*/true);
     Cc['@mozilla.org/chrome/chrome-registry;1']
       .getService(Ci.nsIXULChromeRegistry).checkForNewChrome();
-    manifest.remove(false);
   }
 }
 
@@ -71,15 +79,4 @@ function absolutizePaths(uriMaker, file, line) {
   }
 
   return line;
-}
-
-function constructManifestPath(addon) {
-  let manifest = Services.dirsvc.get('ProfD', Ci.nsIFile)
-  manifest.append('legacy-extension-data');
-  manifest.append(addon.id);
-  manifest.append('chrome.manifest');
-
-  manifest.exists() || manifest.create(Ci.nsIFile.NORMAL_FILE_TYPE, 0o644);
-
-  return manifest;
 }
