@@ -4,6 +4,7 @@ files := config.js
 files += defaults/pref/config-prefs.js
 files += legacy.manifest
 files += legacy/BootstrapLoader.sys.mjs
+files += legacy/LegacyFoxUtils.sys.mjs
 files += legacy/RDFDataSource.sys.mjs
 files += legacy/RDFManifestConverter.sys.mjs
 archive = legacyfox.tar.gz

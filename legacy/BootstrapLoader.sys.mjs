@@ -10,6 +10,7 @@ import {AddonManager} from "resource://gre/modules/AddonManager.sys.mjs";
 import {AddonInternal} from "resource://gre/modules/addons/XPIDatabase.sys.mjs";
 import {InstallRDF} from "resource://legacy/RDFManifestConverter.sys.mjs";
 import {XPIProvider} from "resource://gre/modules/addons/XPIProvider.sys.mjs";
+import {LegacyFoxUtils} from "resource://legacy/LegacyFoxUtils.sys.mjs";
 
 const BOOTSTRAP_REASONS = XPIProvider.BOOTSTRAP_REASONS;
 
@@ -339,7 +340,11 @@ export var BootstrapLoader = {
       startup(...args) {
         if (addon.type == "extension") {
           logger.debug(`Registering manifest for ${file.path}\n`);
+          try {
           Components.manager.addBootstrappedManifestLocation(file);
+          } catch (e) { // mozilla142+
+          LegacyFoxUtils.addBootstrappedManifestLocation(file, addon, getURIForResourceInFile);
+          }
         }
         return startup(...args);
       },
@@ -352,7 +357,11 @@ export var BootstrapLoader = {
         } finally {
           if (reason != BOOTSTRAP_REASONS.APP_SHUTDOWN) {
             logger.debug(`Removing manifest for ${file.path}\n`);
+            try {
             Components.manager.removeBootstrappedManifestLocation(file);
+            } catch (e) { // mozilla142+
+            LegacyFoxUtils.removeBootstrappedManifestLocation(addon);
+            }
           }
         }
       },
