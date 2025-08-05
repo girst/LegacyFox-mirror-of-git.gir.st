@@ -23,6 +23,6 @@ uninstall:
 	cd "$(DESTDIR)" && rm -rf -- $(files)
 
 diff:
-	@curl -s https://hg.mozilla.org/comm-central/raw-file/8a37a90aab4ec643fce1e1ab33984613ce0b492d/common/src/BootstrapLoader.jsm | diff --color -u - legacy/BootstrapLoader.sys.mjs ||:
-	@curl -s https://hg.mozilla.org/comm-central/raw-file/8a37a90aab4ec643fce1e1ab33984613ce0b492d/common/src/RDFDataSource.jsm | diff --color -u - legacy/RDFDataSource.sys.mjs ||:
-	@curl -s https://hg.mozilla.org/comm-central/raw-file/8a37a90aab4ec643fce1e1ab33984613ce0b492d/common/src/RDFManifestConverter.jsm | diff --color -u - legacy/RDFManifestConverter.sys.mjs ||:
+	@curl -sL https://hg.mozilla.org/comm-central/raw-file/8a37a90aab4ec643fce1e1ab33984613ce0b492d/common/src/BootstrapLoader.jsm | diff --color -u - legacy/BootstrapLoader.sys.mjs ||:
+	@curl -sL https://hg.mozilla.org/comm-central/raw-file/8a37a90aab4ec643fce1e1ab33984613ce0b492d/common/src/RDFDataSource.jsm | diff --color -u - legacy/RDFDataSource.sys.mjs ||:
+	@curl -sL https://hg.mozilla.org/comm-central/raw-file/8a37a90aab4ec643fce1e1ab33984613ce0b492d/common/src/RDFManifestConverter.jsm | diff --color -u - legacy/RDFManifestConverter.sys.mjs ||:
