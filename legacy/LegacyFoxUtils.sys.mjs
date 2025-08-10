@@ -1,14 +1,9 @@
 /**
  * Replacements for Components.manager.addBootstrappedManifestLocation and
  * Components.manager.removeBootstrappedManifestLocation, which have been nixed
- * in mozilla142. Copyright 2025 Tobias Girstmair <https://gir.st/>, MPLv2.
+ * in mozilla142. Based on ideas from Github users onemen and 117649.
+ * Copyright 2025 Tobias Girstmair <https://gir.st/>, MPLv2.
  */
-
-const ZipReader = Components.Constructor(
-  "@mozilla.org/libjar/zip-reader;1",
-  "nsIZipReader",
-  "open"
-);
 
 const ScriptableInputStream = Components.Constructor(
   "@mozilla.org/scriptableinputstream;1",
@@ -25,9 +20,19 @@ const FileOutputStream = Components.Constructor(
 export class LegacyFoxUtils {
   static addBootstrappedManifestLocation(file, addon, uriMaker) {
     // read chrome.manifest from .jar (or unpacked addon)
-    let zipReader = new ZipReader(file);
-    let istream = new ScriptableInputStream(zipReader.getInputStream("chrome.manifest"));
-    let manifestContents = istream.read(zipReader.getEntry("chrome.manifest").realSize);
+    let channel = Services.io.newChannelFromURI(
+      uriMaker(file, "chrome.manifest"),
+      null, // aLoadingNode
+      Services.scriptSecurityManager.getSystemPrincipal(),
+      null, // aTriggeringPrincipal
+      Ci.nsILoadInfo.SEC_ALLOW_CROSS_ORIGIN_SEC_CONTEXT_IS_NULL,
+      Ci.nsIContentPolicy.TYPE_OTHER
+    );
+    let available, manifestContents = "";
+    let stream = channel.open(), sstream = new ScriptableInputStream(stream);
+    while ((available = sstream.available()) > 0)
+      manifestContents += sstream.read(available);
+    sstream.close(), stream.close();
 
     // replace chrome:// and resource:// URIs with absolute paths to JAR
     manifestContents = manifestContents
@@ -36,12 +41,13 @@ export class LegacyFoxUtils {
       .join("\n");
 
     // we store the temporary file in the user's profile, in a subdirectory
-    // analogous to webExtension's "browser-extension-data".
+    // analogous to webExtension's "browser-extension-data". the startupCache(?)
+    // sometimes interferes with us, so we name the file differently each time.
     let manifest = Services.dirsvc.get('ProfD', Ci.nsIFile)
     manifest.append('legacy-extension-data');
     manifest.append(addon.id);
     manifest.exists() || manifest.create(Ci.nsIFile.DIRECTORY_TYPE, 0o755);
-    manifest.append('chrome.manifest'); /* created or truncated by ostream */
+    manifest.append(`${Date.now()}.manifest`); /* created or truncated by ostream */
 
     // write modified chrome.manifest to profile directory
     let ostream = new FileOutputStream(manifest, -1, -1, 0);
