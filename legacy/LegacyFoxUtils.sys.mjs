@@ -47,7 +47,7 @@ export class LegacyFoxUtils {
     manifest.append('legacy-extension-data');
     manifest.append(addon.id);
     manifest.exists() || manifest.create(Ci.nsIFile.DIRECTORY_TYPE, 0o755);
-    manifest.append(`${Date.now()}.manifest`); /* created or truncated by ostream */
+    manifest.append('chrome.manifest'); /* created or truncated by ostream */
 
     // write modified chrome.manifest to profile directory
     let ostream = new FileOutputStream(manifest, -1, -1, 0);
